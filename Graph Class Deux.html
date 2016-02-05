@@ -1,0 +1,79 @@
+
+<!-- saved from url=(0093)http://dhansen.cs.georgefox.edu/~dhansen/Classes/Algorithms/Protected/Assignments/Graph2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+      <title>Graph Class Deux</title>
+      <link rel="stylesheet" type="text/css" href="./Graph Class Deux_files/my.css">
+   <style type="text/css"></style></head>
+
+   <body bgcolor="White"><h1>Graph Class Part Deux</h1>
+
+   
+      You should now have a functional Graph class (if not, you need to
+      correct previous flaws).
+      <p>
+      For this assignment we will be adding some useful features to our
+      class. First, you are to add a <b>public static</b> inner-class:
+      </p><pre class="code">public static class Edge&lt;E&gt; {
+   public Edge(E source, E destination, int weight) {}
+   public int getWeight() {}
+   public E getSource() {}
+   public E getDestination() {}
+   public String toString() {}
+}
+      </pre>
+      You do <b>not</b> need to use this class as part of your internal
+      implementation; it will be used to return paths as shown below.
+      <p>
+      Now modify the graph class with a couple of
+      helper-methods, and a new algorithm:
+      </p><pre class="code">   public long pathLength(List&lt;T&gt;) {}
+   public List&lt;Edge&lt;T&gt;&gt; shortestPathBetween(T source, T destination) throws NoSuchElementException {}
+   public static Graph&lt;String&gt; fromCSVFile(boolean isDirected, Scanner inputFile) throws IOException {}
+      </pre>
+      <p>
+      Notes:
+      </p><ul>
+         <li>The "factory" method <kbd>fromCSVFile()</kbd>
+            ought to construct and populate a graph
+            from a <kbd>Scanner</kbd> with the assumption that the file
+                  has the following format:
+                  <pre>                  #vertices
+                  vertex1
+                  vertex2
+                  ...
+                  vertexN
+                  #edges
+                  source1,destination1,weight1
+                  source2,destination2,weight2
+                  ...
+                  sourceN, destinationN, weightN
+                  </pre>
+                  <b>Any</b> sort of expected failure while processing 
+                  the input stream should result in an <kbd>IOException</kbd>, 
+                  including other exceptions from methods populating the graph.
+                  <p>
+                  Here is the <a href="http://dhansen.cs.georgefox.edu/~dhansen/Classes/Algorithms/Protected/Assignments/Campus_Map.csv">file of 
+                     GFU mapping information you recently completed</a>. 
+                  You might consider using the <code>useDelimiter()</code>
+                  method to change the default delimiter and make it trivially
+                  easy to scan through the file.
+         </p></li>
+         <p>
+         </p><li><kbd>pathLength</kbd> should return <kbd>-1</kbd> if the
+            sequence is not a path or the list is empty.
+         </li>
+         <p>
+         </p><li><kbd>shortestPathBetween</kbd> should use
+             Dijkstra's algorithm to find and return the
+             shortest path between any two connected vertices.
+             <kbd>null</kbd> is returned if no path exists.
+         </li>
+         <p>
+         </p><li>You may find it useful to make <kbd>Edge</kbd> objects
+            <kbd>Comparable</kbd>
+      </li></ul>
+
+   
+
+
+<span id="AutoConvertInstalled"></span></body></html>

@@ -1,0 +1,48 @@
+
+<!-- saved from url=(0099)http://dhansen.cs.georgefox.edu/~dhansen/Classes/Algorithms/Protected/Assignments/SpanningTree.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+      <title>Graph Class &lt;em&gt;n&lt;/em&gt;+1</title>
+      <link rel="stylesheet" type="text/css" href="./Graph Class _em_n__em_+1_files/my.css">
+   <style type="text/css"></style></head>
+
+   <body bgcolor="White"><h1>Graph Class Part <em>n</em>+1</h1>
+
+   
+      You should still have a functional Graph class (if not, you need to
+      correct previous flaws).
+      <p>
+      For this assignment we will be adding a couple more useful features to our
+      class. First, if you have not already done so,
+      make your <kbd>Edge</kbd> class <kbd>Comparable</kbd>:
+      </p><pre class="code">public class Edge implements Comparable {
+   public int compareTo(Object o) {}
+}
+      </pre>
+      <p>
+      Now modify the graph class with three new methods:
+      </p><pre class="code">   public Edge&lt;T&gt; getEdge(T source, T destination) {}
+   public List&lt;Edge&lt;T&gt;&gt; getEdges() {}
+   public Graph&lt;T&gt; minimumSpanningTree() throws IllegalStateException {}
+      </pre>
+      <p>
+      Notes:
+      </p><ul>
+         <li><kbd>getEdge()</kbd> can return <kbd>null</kbd> if there is no such edge.
+         </li>
+         <li>If the graph is <b>un</b>directed, then the list of edges
+            returned by <kbd>getEdges()</kbd> should only include
+            <b>one</b> edge for each pair of connected vertices; 
+            otherwise both edges should be included.
+         </li>
+         <li>Your implementtion of <kbd>minimumSpanningTree()</kbd> can use
+             either Prim's <b>or</b> Kruskal's algorithm (Javadoc must clearly
+             identify which you've used). <kbd>null</kbd> should be returned if no 
+             spanning tree exists. Note that it is <b>not</b> legal to ask for the
+             minimum spanning tree of a directed graph. 
+         </li>
+      </ul>
+
+   
+
+
+<span id="AutoConvertInstalled"></span></body></html>

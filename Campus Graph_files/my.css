@@ -1,0 +1,15 @@
+pre.code {border: 1px solid #cacaca;
+  line-height: 1.2em;
+  font: 12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;
+  padding: 5px;
+  padding-left: 15px;
+  overflow:auto;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #FAFAFB;
+  color: #393939;
+  margin: 2px; }
