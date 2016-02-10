@@ -121,7 +121,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#shortestPathBetween(T, T)}.
+    * Test method for {@link Graph#shortestPathBetween(Object, Object)}.
     * 
     * Test for shortestPathBetween(T, T):
     * 
@@ -158,7 +158,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#shortestPathBetween(T, T)}.
+    * Test method for {@link Graph#shortestPathBetween(Object, Object)}.
     * 
     * Test for shortestPathBetween(T, T):
     * 
@@ -198,7 +198,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#shortestPathBetween(T, T)}.
+    * Test method for {@link Graph#shortestPathBetween(Object, Object)}.
     * 
     * Test for shortestPathBetween(T, T):
     * 
@@ -256,7 +256,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#shortestPathBetween(T, T)}.
+    * Test method for {@link Graph#shortestPathBetween(Object, Object)}.
     * 
     * Test for shortestPathBetween(T, T):
     * 
@@ -341,7 +341,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#shortestPathBetween(T, T)}.
+    * Test method for {@link Graph#shortestPathBetween(Object, Object)}.
     * 
     * Test for shortestPathBetween(T, T):
     * 
@@ -529,7 +529,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#shortestPathBetween(T, T)}.
+    * Test method for {@link Graph#shortestPathBetween(Object, Object)}.
     * 
     * Test for shortestPathBetween(T, T):
     * 
@@ -588,7 +588,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#shortestPathBetween(T, T)}.
+    * Test method for {@link Graph#shortestPathBetween(Object, Object)}.
     * 
     * Test for shortestPathBetween(T, T):
     * 
@@ -634,7 +634,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#shortestPathBetween(T, T)}.
+    * Test method for {@link Graph#shortestPathBetween(Object, Object)}.
     * 
     * Test for shortestPathBetween(T, T):
     * 
@@ -689,57 +689,12 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#shortestPathBetween(T, T)}.
-    * 
-    * Test for shortestPathBetween(T, T):
-    * 
-    * 9. Campus Graph Tests.
-    */
-   @Test
-   public void testShortest9()
-   {
-      List<Graph.Edge<String>> p;
-      createGraphs();
-      testMethod = "shortestPathBetween(T, T)";
-
-      // Add Vertices A, B,...,E , F to the Graphs.
-      for (int i = 0; i < 6; i++)
-      {
-         undirectedGraph.addVertex(String.valueOf(Character
-                  .valueOf((char) ('A' + i))));
-         directedGraph.addVertex(String.valueOf(Character
-                  .valueOf((char) ('A' + i))));
-      }
-
-      undirectedGraph.addEdge("A", "B", 4);
-      undirectedGraph.addEdge("B", "C", 3);
-      undirectedGraph.addEdge("C", "D", 1);
-      undirectedGraph.addEdge("D", "E", 2);
-      undirectedGraph.addEdge("D", "A", 2);
-      undirectedGraph.addEdge("D", "B", 1);
-      undirectedGraph.addEdge("E", "A", 1);
-      undirectedGraph.addEdge("E", "F", 1);
-      // F is the disconnected Vertex.
-
-      directedGraph.addEdge("A", "B", 4);
-      directedGraph.addEdge("B", "C", 3);
-      directedGraph.addEdge("B", "D", 1);
-      directedGraph.addEdge("C", "D", 1);
-      directedGraph.addEdge("D", "E", 2);
-      directedGraph.addEdge("D", "A", 2);
-      directedGraph.addEdge("D", "B", 1);
-      directedGraph.addEdge("E", "A", 1);
-      directedGraph.addEdge("E", "F", 1);
-      // F is the disconnected Vertex.
-   }
-
-   /**
     * Test method for {@link Graph#shortestPathBetween(Object, Object)}.
     * 
     * @throws IOException
     */
    @Test
-   public void testShortestPathBetweenAndfromCSVFile() throws IOException
+   public void testShortestPathBetweenCampus() throws IOException
    {
       testMethod = "shortestPathBetween(T, T)";
       Scanner in = new Scanner(new File(GRAPH_CSV_FILE));
@@ -844,7 +799,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#getEdge()}.
+    * Test method for {@link Graph#getEdge(Object, Object)}.
     */
    @Test
    public void testGetEdge()
@@ -996,7 +951,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for {@link Graph#pathLength(List<T>)}.
+    * Test method for {@link Graph#pathLength(List)}.
     * 
     * TODO: Verify this test after grading comes back.
     */
@@ -1150,8 +1105,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for
-    * {@link Graph#getEdgeWeight(java.lang.Object, java.lang.Object)}.
+    * Test method for {@link Graph#getEdgeWeight(Object, Object)}.
     */
    @Test
    public void testGetEdgeWeight()
@@ -1205,8 +1159,7 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for
-    * {@link Graph#edgeExists(java.lang.Object, java.lang.Object)}.
+    * Test method for {@link Graph#edgeExists(Object, Object)}.
     */
    @Test
    public void testEdgeExists()
@@ -1422,13 +1375,12 @@ public class GraphJUnit<T>
    }
 
    /**
-    * Test method for
-    * {@link Graph#removeEdge(java.lang.Object, java.lang.Object)}.
+    * Test method for {@link Graph#removeEdge(Object, Object)}.
     */
    @Test
    public void testRemoveEdge()
    {
-      testMethod = "removeEdge(T, T)";
+      testMethod = "removeEdge(T)";
       createGraphs();
       addEdgesToGraphs();
 
@@ -1458,31 +1410,6 @@ public class GraphJUnit<T>
       {
          failTest("A-->A does not exist in the undirected Graph.");
       }
-   }
-
-   /**
-    * Helper method to build a String representing the path passed as an
-    * argument.
-    * 
-    * @param path
-    *           The path to build the path.
-    * @return The String representing the path passed as an argument.
-    */
-   private String getPathOfVertices(List<String> path)
-   {
-      StringBuilder s = new StringBuilder();
-
-      if (!path.isEmpty())
-      {
-         s.append(path.get(0));
-      }
-
-      for (int i = 1; i < path.size(); i++)
-      {
-         s.append(" ---> " + path.get(i));
-      }
-
-      return s.toString();
    }
 
    /**
@@ -1722,4 +1649,31 @@ public class GraphJUnit<T>
                   vertices.get((i + 1) % vertices.size()), 1);
       }
    }
+
+   // Commented out because it may be used later; code was written and I don't
+   // like writing code twice.
+   // /**
+   // * Helper method to build a String representing the path passed as an
+   // * argument.
+   // *
+   // * @param path
+   // * The path to build the path.
+   // * @return The String representing the path passed as an argument.
+   // */
+   // private String getPathOfVertices(List<String> path)
+   // {
+   // StringBuilder s = new StringBuilder();
+   //
+   // if (!path.isEmpty())
+   // {
+   // s.append(path.get(0));
+   // }
+   //
+   // for (int i = 1; i < path.size(); i++)
+   // {
+   // s.append(" ---> " + path.get(i));
+   // }
+   //
+   // return s.toString();
+   // }
 }
