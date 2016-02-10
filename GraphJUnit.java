@@ -34,6 +34,9 @@ public class GraphJUnit<T>
     * Directed Graph used for testing.
     */
    public Graph<String>     directedGraph;
+   /**
+    * List of Vertices we commonly use in the Graph testing.
+    */
    public ArrayList<String> vertices;
 
    /**
