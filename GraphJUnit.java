@@ -818,13 +818,13 @@ public class GraphJUnit<T>
       }
 
       // Test source.equals(destination), should be null.
-      if (undirectedGraph.getEdge("A", "A") == null)
+      if (undirectedGraph.getEdge("A", "A") != null)
       {
-         passTest("Undirected Graph returned null for source.equals(destination) Edge.");
+         passTest("Undirected Graph returned non-null for source.equals(destination) Edge.");
       }
       else
       {
-         failTest("Undirected Graph returned non-null source.equals(destination) Edge.");
+         failTest("Undirected Graph returned null source.equals(destination) Edge.");
       }
 
       directedGraph.addEdge("A", "B", 3);
@@ -852,13 +852,13 @@ public class GraphJUnit<T>
       }
 
       // Directed test source.equals(destination), should be null.
-      if (directedGraph.getEdge("A", "A") == null)
+      if (directedGraph.getEdge("A", "A") != null)
       {
-         passTest("Directed Graph returned null for source.equals(destination) Edge.");
+         passTest("Directed Graph returned non-null for source.equals(destination) Edge.");
       }
       else
       {
-         failTest("Directed Graph returned non-null source.equals(destination) Edge.");
+         failTest("Directed Graph returned null source.equals(destination) Edge.");
       }
    }
 
@@ -984,19 +984,21 @@ public class GraphJUnit<T>
       createGraphs();
       addEdgesToGraphs();
       undirectedGraph.removeEdge("A", "B");
+      undirectedGraph.removeEdge("B", "C");
 
-      // Now, since we have Edges in our Graph...remove one.
+      // Now, since we have Edges in our Graph, make it so we can't get to
+      // Vertex B.
       // We should get a null return when we ask for the MST because it does not
       // exist in this Graph.
       try
       {
          if (undirectedGraph.minimumSpanningTree() == null)
          {
-            failTest("Undirected Graph returned null when there was no such MST.");
+            passTest("Undirected Graph returned null when there was no such MST.");
          }
          else
          {
-            passTest("Undirected Graph returned non-null when there was no such MST.");
+            failTest("Undirected Graph returned non-null when there was no such MST.");
          }
       }
       catch (Exception e)
@@ -1256,8 +1258,8 @@ public class GraphJUnit<T>
                   vertices.get(i + 1)))
          {
             failTest("Edge from: " + vertices.get(i) + " to: "
-                     + vertices.get(i + 1)
-                     + "\nExists in empty undirected Graph.");
+                     + vertices.get(i + 1) + System.lineSeparator()
+                     + "Exists in empty undirected Graph.");
          }
       }
 
@@ -1479,6 +1481,28 @@ public class GraphJUnit<T>
                || undirectedGraph.getEdgeWeight("A", "A") != MIN_EDGE_WEIGHT)
       {
          failTest("A-->A does not exist in the undirected Graph.");
+      }
+
+      // Test Directed for removing self-Edge.
+      try
+      {
+         undirectedGraph.removeEdge("A", "A");
+         failTest("Undirected Graph allowed removal of self-Edge.");
+      }
+      catch (Exception e)
+      {
+         passTest("Undirected Graph correctly threw NoSuchElementException for attempting to remove self-Edge.");
+      }
+
+      // Test Directed for removing self-Edge.
+      try
+      {
+         directedGraph.removeEdge("A", "A");
+         failTest("Directed Graph allowed removal of self-Edge.");
+      }
+      catch (Exception e)
+      {
+         passTest("Directed Graph correctly threw NoSuchElementException for attempting to remove self-Edge.");
       }
    }
 
