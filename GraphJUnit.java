@@ -272,11 +272,11 @@ public class GraphJUnit<T>
 
          if (p != null)
          {
-            passTest("Connected Undirected Graph with two Vertices does return null when asked for Path where Vertices and an Edge between the Vertices exists.");
+            passTest("Connected Undirected Graph with two Vertices returns shortest Path when asked for Path where Vertices and an Edge between the Vertices exists.");
          }
          else
          {
-            failTest("Connected Undirected Graph with two Vertices returned null when asked for Path where Vertices and an Edge between the Vertices exists.");
+            failTest("Connected Undirected Graph with two Vertices returns null when asked for Path where Vertices and an Edge between the Vertices exists.");
          }
 
          p = undirectedGraph.shortestPathBetween("B", "A");
