@@ -12,7 +12,7 @@ import org.junit.Test;
 /**
  * @author Michael
  * @param <T>
- * @version 1.5
+ * @version 1.6
  */
 public class GraphJUnit<T>
 {
@@ -34,29 +34,11 @@ public class GraphJUnit<T>
     * Directed Graph used for testing.
     */
    public Graph<String>     directedGraph;
+
    /**
     * List of Vertices we commonly use in the Graph testing.
     */
    public ArrayList<String> vertices;
-
-   /**
-    * Method to create a directed and an undirected graph as well as a list of
-    * vertices. Note: Vertices are not added, the Graph objects are only
-    * created.
-    */
-   private void createGraphs()
-   {
-      // Create a non-directed and directed Graph.
-      undirectedGraph = new Graph<String>(false);
-      directedGraph = new Graph<String>(true);
-      vertices = new ArrayList<String>();
-
-      // Add A, B, C, D, E to vertices ArrayList.
-      for (int i = 0; i < 5; i++)
-      {
-         vertices.add(String.valueOf(Character.valueOf((char) ('A' + i))));
-      }
-   }
 
    /**
     * Test method for {@link Graph#Graph(boolean)}. Tests object creation.
@@ -835,14 +817,14 @@ public class GraphJUnit<T>
          passTest("Undirected Graph properly returned null for a non-existent Edge.");
       }
 
-      // Test source.equals(destination).
-      if (undirectedGraph.getEdge("A", "A") != null)
+      // Test source.equals(destination), should be null.
+      if (undirectedGraph.getEdge("A", "A") == null)
       {
-         passTest("Undirected Graph returned source.equals(destination) Edge.");
+         passTest("Undirected Graph returned null for source.equals(destination) Edge.");
       }
       else
       {
-         failTest("Undirected Graph failed to return source.equals(destination) Edge.");
+         failTest("Undirected Graph returned non-null source.equals(destination) Edge.");
       }
 
       directedGraph.addEdge("A", "B", 3);
@@ -869,14 +851,14 @@ public class GraphJUnit<T>
          passTest("Directed Graph properly returned null for a non-existent Edge.");
       }
 
-      // Directed test source.equals(destination).
-      if (directedGraph.getEdge("A", "A") != null)
+      // Directed test source.equals(destination), should be null.
+      if (directedGraph.getEdge("A", "A") == null)
       {
-         passTest("Directed Graph returned source.equals(destination) Edge.");
+         passTest("Directed Graph returned null for source.equals(destination) Edge.");
       }
       else
       {
-         failTest("Directed Graph failed to return source.equals(destination) Edge.");
+         failTest("Directed Graph returned non-null source.equals(destination) Edge.");
       }
    }
 
@@ -895,8 +877,6 @@ public class GraphJUnit<T>
 
    /**
     * Test method for {@link Graph#minimumSpanningTree()}.
-    * 
-    * TODO: Finish writing this test.
     */
    @Test
    public void testMinimumSpanningTree()
@@ -904,6 +884,9 @@ public class GraphJUnit<T>
       testMethod = "minimumSpanningTree()";
       createGraphs();
       addVerticesToGraphs();
+      // We will build the expected MST and then add some more edges and see if
+      // the Graphs have the same Edges for the MST.
+      Graph<String> g;
 
       try
       {
@@ -914,16 +897,41 @@ public class GraphJUnit<T>
       {
          passTest("Directed Graph correctly threw exception when called.");
       }
+      catch (Exception e)
+      {
+         failTest("Directed Graph threw incorrect exception when called.");
+      }
 
       createGraphs();
+
+      // Test completely empty Graph.
+      try
+      {
+         if (undirectedGraph.minimumSpanningTree() != null)
+         {
+            failTest("Undirected Graph with no Vertices did not return null when there was no such MST.");
+         }
+      }
+      catch (Exception e)
+      {
+         failTest("Undirected Graph with no Vertices threw an exception when there was no such MST.");
+      }
+
       addVerticesToGraphs();
 
       // Since we don't have any Edges in our Graph, but we have Vertices, we
       // should get a null return when we ask for the MST because it does not
       // exist.
-      if (undirectedGraph.minimumSpanningTree() != null)
+      try
       {
-         failTest("Undirected Graph did not return null when there was no such MST.");
+         if (undirectedGraph.minimumSpanningTree() != null)
+         {
+            failTest("Undirected Graph with Vertices did not return null when there was no such MST.");
+         }
+      }
+      catch (Exception e)
+      {
+         failTest("Undirected Graph with Vertices threw an exception when there was no such MST.");
       }
 
       createGraphs();
@@ -931,9 +939,20 @@ public class GraphJUnit<T>
 
       // Now, since we have Edges in our Graph, we should get a non-null return
       // when we ask for the MST because it does exist in this Graph.
-      if (undirectedGraph.minimumSpanningTree() == null)
+      try
       {
-         failTest("Undirected Graph returned null when there is a valid MST.");
+         if (undirectedGraph.minimumSpanningTree() == null)
+         {
+            failTest("Undirected Graph returned null when there is a valid MST.");
+         }
+         else
+         {
+            passTest("Undirected Graph returned non-null when there is a valid MST.");
+         }
+      }
+      catch (Exception e)
+      {
+         failTest("Undirected Graph threw an exception when there is a valid MST.");
       }
 
       try
@@ -949,14 +968,62 @@ public class GraphJUnit<T>
       // Test the CSV Graph to see if it has an MST.
       if ((undirectedGraph.minimumSpanningTree() == null) == CSV_HAS_MST)
       {
-         failTest("undirectedGraph.minimumSpanningTree() returns NULL.");
+         failTest("Connected Campus Graph returns null when MST exists.");
       }
+
+      // Disconnect one of the Vertices
+      undirectedGraph.removeEdge("Meridian Street House",
+               "Spiritual Life (Sheridan Street House)");
+
+      // Test the CSV Graph to see if it has an MST.
+      if (undirectedGraph.minimumSpanningTree() != null)
+      {
+         failTest("Disconnected Campus Graph returns non-null when no such MST exists.");
+      }
+
+      createGraphs();
+      addEdgesToGraphs();
+      undirectedGraph.removeEdge("A", "B");
+
+      // Now, since we have Edges in our Graph...remove one.
+      // We should get a null return when we ask for the MST because it does not
+      // exist in this Graph.
+      try
+      {
+         if (undirectedGraph.minimumSpanningTree() == null)
+         {
+            failTest("Undirected Graph returned null when there was no such MST.");
+         }
+         else
+         {
+            passTest("Undirected Graph returned non-null when there was no such MST.");
+         }
+      }
+      catch (Exception e)
+      {
+         failTest("Undirected Graph threw an exception when there was no such MST.");
+      }
+
+      createGraphs();
+      addVerticesToGraphs();
+
+      // The Edge C-->D should not be in MST
+      undirectedGraph.addEdge("A", "B", 1);
+      undirectedGraph.addEdge("A", "C", 1);
+      undirectedGraph.addEdge("B", "D", 1);
+      undirectedGraph.addEdge("B", "E", 5);
+      undirectedGraph.addEdge("C", "E", 5);
+      undirectedGraph.addEdge("D", "E", 5);
+      undirectedGraph.addEdge("A", "E", 5);
+
+      g = undirectedGraph;
+
+      undirectedGraph.addEdge("C", "D", 4);
+
    }
 
    /**
     * Test method for {@link Graph#pathLength(List)}.
-    * 
-    * TODO: Verify this test after grading comes back.
     */
    @Test
    public void testPathLength()
@@ -1633,6 +1700,25 @@ public class GraphJUnit<T>
       }
 
       return totalPathWeight;
+   }
+
+   /**
+    * Helper method to create a directed and an undirected graph as well as a
+    * list of vertices. Note: Vertices are not added, the Graph objects are only
+    * created.
+    */
+   private void createGraphs()
+   {
+      // Create a non-directed and directed Graph.
+      undirectedGraph = new Graph<String>(false);
+      directedGraph = new Graph<String>(true);
+      vertices = new ArrayList<String>();
+
+      // Add A, B, C, D, E to vertices ArrayList.
+      for (int i = 0; i < 5; i++)
+      {
+         vertices.add(String.valueOf(Character.valueOf((char) ('A' + i))));
+      }
    }
 
    /**
