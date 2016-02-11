@@ -12,10 +12,12 @@ import org.junit.Test;
 /**
  * @author Michael
  * @param <T>
- * @version 1.6
+ * @version 1.7
  */
 public class GraphJUnit<T>
 {
+   // File to specify what graph csv to use.
+   // Boolean whether or not the graph file has an MST.
    private final String     GRAPH_CSV_FILE  = "src/Campus_Map.csv";
    private final boolean    CSV_HAS_MST     = true;
 
